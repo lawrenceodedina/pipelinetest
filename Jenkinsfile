@@ -26,7 +26,9 @@ pipeline{
           def customImage1 = docker.build("femiodedina/devops-pipe")
           customImage.push()
           customImage1.push("latest")
+          }
         }
       }
     }
   }
+ }
