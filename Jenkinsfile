@@ -3,10 +3,6 @@ pipeline{
   tools{
     maven 'M2_HOME'
   }
-  environment{
-    registry = "femiodedina/devops-pipe"
-    registryCredential= 'dockerID'
-  }
   stages {
     stage('Build'){
       steps{
@@ -24,9 +20,13 @@ pipeline{
     stage('Deploy'){
       steps{
         script{
-          docker.build registry + ":$BUILD_NUMBER"
+          checkout scm
+          docker.withRegistry('', 'dockerID') {
+          def customImage = docker.build("femiodedina/devops-pipe:${env.BUILD_ID}")
+          def customImage1 = docker.build("femiodedina/devops-pipe")
+          customImage.push()
+          customImage1.push()
         }
       }
     }
   }
-}
