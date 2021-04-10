@@ -25,7 +25,7 @@ pipeline{
           def customImage = docker.build("femiodedina/devops-pipe:${env.BUILD_ID}")
           def customImage1 = docker.build("femiodedina/devops-pipe")
           customImage.push()
-          customImage1.push()
+          customImage1.push("latest")
         }
       }
     }
